@@ -1,12 +1,11 @@
 # Build arguments
-ARG UBUNTU_RELEASE_YEAR=20
-ARG ZED_SDK_MAJOR=3
-ARG ZED_SDK_MINOR=8
-ARG CUDA_MAJOR=11
-ARG CUDA_MINOR=4
+ARG ZED_SDK_MAJOR
+ARG ZED_SDK_MINOR
+ARG L4T_MAJOR_VERSION
+ARG L4T_MINOR_VERSION
 
-# Specify the parent image from which we build
-FROM stereolabs/zed:${ZED_SDK_MAJOR}.${ZED_SDK_MINOR}-gl-devel-cuda${CUDA_MAJOR}.${CUDA_MINOR}-ubuntu${UBUNTU_RELEASE_YEAR}.04
+# Specify the parent image from which we build (Jetson 4 Linux / J4T)
+FROM stereolabs/zed:${ZED_SDK_MAJOR}.${ZED_SDK_MINOR}-devel-l4t-r${ZED_SDK_MAJOR}.${L4T_MINOR_VERSION}
 
 ARG ROS_DISTRO_ARG
 ENV LOGNAME root
@@ -35,6 +34,7 @@ RUN if [ "$ROS_DISTRO_ARG" = "noetic" ] ; then \
     else \
        apt-get install -y python-rosdep  python-rosinstall python-rosinstall-generator python-wstool ; \
     fi 
+
 
 RUN rm -rf /var/lib/apt/lists/*
 
