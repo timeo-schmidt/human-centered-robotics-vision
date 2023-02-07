@@ -5,7 +5,7 @@ ARG L4T_MAJOR_VERSION
 ARG L4T_MINOR_VERSION
 
 # Specify the parent image from which we build (Jetson 4 Linux / J4T)
-FROM stereolabs/zed:${ZED_SDK_MAJOR}.${ZED_SDK_MINOR}-devel-l4t-r${ZED_SDK_MAJOR}.${L4T_MINOR_VERSION}
+FROM stereolabs/zed:${ZED_SDK_MAJOR}.${ZED_SDK_MINOR}-devel-l4t-r${L4T_MAJOR_VERSION}.${L4T_MINOR_VERSION}
 
 ARG ROS_DISTRO_ARG
 ENV LOGNAME root
