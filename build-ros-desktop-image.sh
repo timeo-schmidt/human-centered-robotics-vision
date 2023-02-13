@@ -1,16 +1,7 @@
 #!/bin/bash
 set -e
+source .env
 
-# Specify versions
-ZED_SDK_MAJOR=3
-ZED_SDK_MINOR=8
-L4T_MAJOR_VERSION=35
-L4T_MINOR_VERSION=1
-ROS_DISTRO_ARG="noetic"
-DOCKERFILE_PATH="Dockerfile.ros"
-
-# Create tag name based on the previously selected versions
-TAG="jetson-ros-desktop:${ROS_DISTRO_ARG}-l4t-${L4T_MAJOR_VERSION}.${L4T_MINOR_VERSION}-zed-${ZED_SDK_MAJOR}.${ZED_SDK_MINOR}"
 echo "Building '${TAG}'"
 
 docker build --build-arg ZED_SDK_MAJOR=${ZED_SDK_MAJOR} \
