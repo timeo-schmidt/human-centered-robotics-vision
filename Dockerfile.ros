@@ -31,11 +31,34 @@ RUN if [ "$ROS_DISTRO_ARG" = "noetic" ] ; then \
 
 RUN rm -rf /var/lib/apt/lists/*
 
-#Setup ROS workspace
-RUN mkdir -p /opt/ros_ws/src
-WORKDIR /opt/ros_ws
-RUN  . /opt/ros/noetic/setup.sh && \
-	catkin_make 		
+#Setup Catkin workspace
+RUN mkdir -p ~/catkin_ws/src
+WORKDIR ~/catkin_ws/
+RUN catkin_make		
+
+# Clone the ZED ROS Wrapper
+WORKDIR ~/catkin_ws/src
+RUN git clone --recursive https://github.com/stereolabs/zed-ros-wrapper.git
+
+# Install ZED ROS Wrapper
+WORKDIR ~/catkin_ws/
+RUN rosdep init
+RUN rosdep update
+RUN rosdep install --from-paths src --ignore-src -r -y
+RUN catkin_make -DCMAKE_BUILD_TYPE=Release
+RUN chmod a+x devel/setup.bash
+RUN source ./devel/setup.bash
+
+# Clone the ROS ZED Examples
+WORKDIR ~/catkin_ws/src
+RUN sudo apt-get update -y
+RUN command git clone https://github.com/stereolabs/zed-ros-examples.git
+
+# Install ROS ZED Examples
+WORKDIR ~/catkin_ws/
+RUN rosdep install --from-paths src --ignore-src -r -y
+RUN catkin_make -DCMAKE_BUILD_TYPE=Release
+RUN source ./devel/setup.bash
 
 # setup entrypoint
 COPY ./ros_entrypoint.sh /
