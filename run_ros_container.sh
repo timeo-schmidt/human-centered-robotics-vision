@@ -6,6 +6,7 @@ xhost +
 
 docker run \
     --privileged \
+    --rm \
     --gpus all \
     --entrypoint bash \
     --runtime nvidia \
