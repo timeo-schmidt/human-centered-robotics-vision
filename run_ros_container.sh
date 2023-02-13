@@ -4,10 +4,14 @@ source .env
 
 xhost +
 
-docker run -it --env=${DISPLAY} \
-    --env=${QT_X11_NO_MITSHM=1} \
-    --volume=${VOLUME} \
-    --runtime nvidia \
+docker run \
+    -it  \
+    --privileged \
     --gpus all \
-    --priviliged ${TAG} \
+    --runtime nvidia \
+    --net=host \
+    -e DISPLAY=$DISPLAY \
+    --ipc=host \
+    -v /tmp/.X11-unix/:/tmp/.X11-unix/ -v /tmp/argus_socket:/tmp/argus_socket  \
+    ${TAG} \
     bash
