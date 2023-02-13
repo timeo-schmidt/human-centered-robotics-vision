@@ -24,6 +24,6 @@ catkin_make -DCMAKE_BUILD_TYPE=Release
 chmod a+x devel/setup.bash
 source ./devel/setup.bash
 
-exec "$@" # pass all arguments to the entrypoint
+roslaunch zed_wrapper zed2i.launch
 
-# docker run --runtime nvidia --gpus all -it --privileged <DOCKER IMAGE>
+exec "$@" # pass all arguments to the entrypoint
