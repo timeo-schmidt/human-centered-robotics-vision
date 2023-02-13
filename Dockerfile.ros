@@ -27,8 +27,7 @@ RUN if [ "$ROS_DISTRO_ARG" = "noetic" ] ; then \
 	apt-get install -y python3-rosdep python3-rosinstall  python3-rosinstall-generator python3-wstool ;\
     else \
        apt-get install -y python-rosdep  python-rosinstall python-rosinstall-generator python-wstool ; \
-    fi 
-
+    fi
 
 RUN rm -rf /var/lib/apt/lists/*
 
