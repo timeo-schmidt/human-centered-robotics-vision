@@ -38,7 +38,7 @@ RUN apt-get update -y
 # Install ROS ZED Examples
 WORKDIR /opt/ros_ws/
 RUN rosdep install --from-paths src --ignore-src -r -y \
-    && . /opt/ros/noetic/setup.bash \
+    && . /opt/ros/noetic/setup.sh \
     && catkin_make -DCMAKE_BUILD_TYPE=Release
 RUN source ./devel/setup.bash
 
