@@ -2,7 +2,7 @@ ARG BASE_IMAGE
 FROM ${BASE_IMAGE}
 
 # Source ROS
-RUN source /opt/ros/noetic/setup.bash
+RUN /bin/bash -c 'source /opt/ros/noetic/setup.bash'
 
 # Setup Catkin workspace
 RUN mkdir -p ~/catkin_ws/src
@@ -21,7 +21,7 @@ RUN rosdep update
 RUN rosdep install --from-paths src --ignore-src -r -y
 RUN /bin/bash -c '. /opt/ros/noetic/setup.bash; cd ~/catkin_ws/; catkin_make -DCMAKE_BUILD_TYPE=Release'
 RUN chmod a+x devel/setup.bash
-RUN source ./devel/setup.bash
+RUN /bin/bash -c 'source ./devel/setup.bash'
 
 # Clone the ROS ZED Examples
 WORKDIR ~/catkin_ws/src
@@ -32,7 +32,7 @@ RUN command git clone https://github.com/stereolabs/zed-ros-examples.git
 WORKDIR ~/catkin_ws/
 RUN rosdep install --from-paths src --ignore-src -r -y
 RUN /bin/bash -c '. /opt/ros/noetic/setup.bash; cd ~/catkin_ws/; catkin_make -DCMAKE_BUILD_TYPE=Release'
-RUN source ./devel/setup.bash
+RUN /bin/bash -c 'source ./devel/setup.bash'
 
 # setup entrypoint
 WORKDIR /
