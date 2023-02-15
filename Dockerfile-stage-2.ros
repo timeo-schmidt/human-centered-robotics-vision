@@ -16,9 +16,7 @@ RUN git clone --recursive https://github.com/stereolabs/zed-ros-wrapper.git
 # Install ZED ROS Wrapper
 WORKDIR ~/catkin_ws/
 RUN /bin/bash -c 'cd ~/catkin_ws/; rosdep init; rosdep update; rosdep install --from-paths src --ignore-src -r -y'
-RUN /bin/bash -c '. /opt/ros/noetic/setup.bash; cd ~/catkin_ws/; catkin_make -DCMAKE_BUILD_TYPE=Release'
-RUN chmod a+x devel/setup.bash
-RUN /bin/bash -c 'source ./devel/setup.bash'
+RUN /bin/bash -c '. /opt/ros/noetic/setup.bash; cd ~/catkin_ws/; catkin_make -DCMAKE_BUILD_TYPE=Release; chmod a+x devel/setup.bash; source ./devel/setup.bash'
 
 # Clone the ROS ZED Examples
 WORKDIR ~/catkin_ws/src
