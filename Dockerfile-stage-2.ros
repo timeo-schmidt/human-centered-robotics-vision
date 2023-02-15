@@ -3,7 +3,7 @@ ARG BASE_IMAGE
 FROM ${BASE_IMAGE}
 
 # Source ROS
-RUN source "/opt/ros/$ROS_DISTRO/setup.bash" 
+RUN source "/opt/ros/noetic/setup.bash" 
 
 # Setup Catkin workspace
 RUN mkdir -p ~/catkin_ws/src
