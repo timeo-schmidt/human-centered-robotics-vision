@@ -32,6 +32,9 @@ WORKDIR /opt/ros_ws/src/
 # RUN apt-get update -y
 RUN git clone https://github.com/stereolabs/zed-ros-examples.git
 
+# Run apt-get update
+RUN apt-get update -y
+
 # Install ROS ZED Examples
 WORKDIR /opt/ros_ws/
 RUN rosdep install --from-paths src --ignore-src -r -y \
