@@ -1,19 +1,15 @@
 ARG BASE_IMAGE
 FROM ${BASE_IMAGE}
 
-SHELL ["/bin/bash", "-c"]
+# Set bash as default shell
 
 #### SETUP ROS WORKSPACE ####
 
-# Source ROS
-RUN source /opt/ros/noetic/setup.bash
-
-# Create catkin worspace directory
-RUN mkdir -p ~/catkin_ws/src
-
 # Build the workspace
-WORKDIR ~/catkin_ws/
-RUN source /opt/ros/noetic/setup.bash && catkin_make && source devel/setup.bash
+RUN mkdir -p /opt/ros_ws/src
+WORKDIR /opt/ros_ws
+RUN  . /opt/ros/noetic/setup.sh && \
+	catkin_make 	
 
 #### ZED ROS WRAPPER ####
 
