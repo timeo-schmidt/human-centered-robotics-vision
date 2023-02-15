@@ -1,9 +1,11 @@
 ARG BASE_IMAGE
-
 FROM ${BASE_IMAGE}
 
+# Change the shell
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+
 # Source ROS
-RUN source "/opt/ros/noetic/setup.bash" 
+RUN source /opt/ros/noetic/setup.bash
 
 # Setup Catkin workspace
 RUN mkdir -p ~/catkin_ws/src
