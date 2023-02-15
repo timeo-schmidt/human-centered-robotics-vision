@@ -40,12 +40,12 @@ WORKDIR /opt/ros_ws/
 RUN rosdep install --from-paths src --ignore-src -r -y \
     && . /opt/ros/noetic/setup.sh \
     && catkin_make -DCMAKE_BUILD_TYPE=Release
-RUN source ./devel/setup.bash
+RUN  . ./devel/setup.sh
 
-# # setup entrypoint
-# WORKDIR /
-# COPY ./ros_entrypoint.sh /
-# RUN chmod a+x /ros_entrypoint.sh
-# ENTRYPOINT ["/ros_entrypoint.sh"]
+# Setup entrypoint
+WORKDIR /
+COPY ./ros_entrypoint.sh /
+RUN chmod a+x /ros_entrypoint.sh
+ENTRYPOINT ["/ros_entrypoint.sh"]
 
-# CMD ["bash"]
+CMD ["bash"]
