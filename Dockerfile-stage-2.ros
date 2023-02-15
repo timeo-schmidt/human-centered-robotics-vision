@@ -14,6 +14,7 @@ RUN  . /opt/ros/noetic/setup.sh && \
 #### ZED ROS WRAPPER ####
 
 # Clone the ZED ROS Wrapper
+WORKDIR /opt/ros_ws/src
 RUN git clone --recursive https://github.com/stereolabs/zed-ros-wrapper.git
 
 # Install ZED ROS Wrapper
@@ -21,6 +22,7 @@ WORKDIR /opt/ros_ws/
 RUN rosdep init \
     && rosdep update \
     && rosdep install --from-paths /opt/ros_ws/src --ignore-src -r -y \
+    && . /opt/ros/noetic/setup.sh \
     && catkin_make -DCMAKE_BUILD_TYPE=Release
 RUN chmod a+x devel/setup.bash
 RUN . ./devel/setup.sh
