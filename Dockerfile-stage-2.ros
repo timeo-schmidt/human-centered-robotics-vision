@@ -22,7 +22,7 @@ WORKDIR ~/catkin_ws/
 RUN rosdep init
 RUN rosdep update
 RUN rosdep install --from-paths src --ignore-src -r -y
-RUN /opt/ros/noetic/setup.bash
+RUN source /opt/ros/noetic/setup.bash
 RUN catkin_make -DCMAKE_BUILD_TYPE=Release
 RUN chmod a+x devel/setup.bash
 RUN source ./devel/setup.bash
