@@ -1,0 +1,43 @@
+ARG BASE_IMAGE
+
+FROM BASE_IMAGE
+
+# Source ROS
+RUN source "/opt/ros/$ROS_DISTRO/setup.bash" 
+
+# Setup Catkin workspace
+RUN mkdir -p ~/catkin_ws/src
+WORKDIR ~/catkin_ws/
+RUN catkin_make		
+
+# Clone the ZED ROS Wrapper
+WORKDIR ~/catkin_ws/src
+RUN git clone --recursive https://github.com/stereolabs/zed-ros-wrapper.git
+
+# Install ZED ROS Wrapper
+WORKDIR ~/catkin_ws/
+RUN rosdep init
+RUN rosdep update
+RUN rosdep install --from-paths src --ignore-src -r -y
+RUN catkin_make -DCMAKE_BUILD_TYPE=Release
+RUN chmod a+x devel/setup.bash
+RUN source ./devel/setup.bash
+
+# Clone the ROS ZED Examples
+WORKDIR ~/catkin_ws/src
+RUN sudo apt-get update -y
+RUN command git clone https://github.com/stereolabs/zed-ros-examples.git
+
+# Install ROS ZED Examples
+WORKDIR ~/catkin_ws/
+RUN rosdep install --from-paths src --ignore-src -r -y
+RUN catkin_make -DCMAKE_BUILD_TYPE=Release
+RUN source ./devel/setup.bash
+
+# setup entrypoint
+WORKDIR /
+COPY ./ros_entrypoint.sh /
+RUN chmod a+x /ros_entrypoint.sh
+ENTRYPOINT ["/ros_entrypoint.sh"]
+
+CMD ["bash"]
