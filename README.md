@@ -14,7 +14,8 @@ Before starting, check this:
 
 # Otherwise get the IP address by connecting a screen to the Jetson.
 # IP likely is 192.168.50.102
-ssh <ip address of jetson> 
+ssh <ip address of jetson> -X 
+# user prl; password prl
 
 cd human-centered-robotics-vision/
 ./run_ros_container.sh  # Start the docker container
