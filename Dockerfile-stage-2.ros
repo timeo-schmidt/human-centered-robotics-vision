@@ -46,6 +46,13 @@ RUN  . ./devel/setup.sh
 WORKDIR /
 COPY ./ros_entrypoint.sh /
 RUN chmod a+x /ros_entrypoint.sh
-ENTRYPOINT ["/ros_entrypoint.sh"]
-
+#ENTRYPOINT ["/ros_entrypoint.sh"]
+COPY ./common.yaml /opt/ros_ws/src/zed-ros-wrapper/zed_wrapper/params/common.yaml
+COPY ./zed2i.yaml   /opt/ros_ws/src/zed-ros-wrapper/zed_wrapper/params/zed2i.yaml
+COPY ./start.sh /start.sh
+COPY ./objects_performance_2.2.model /usr/local/zed/resources/objects_performance_2.2.model
+RUN chmod +x start.sh
 CMD ["bash"]
+#CMD ["bash -c \"source /opt/ros/noetic/setup.bash && source  source /opt/ros_ws/devel/setup.bash && \
+#bash\""]
+#CMD ["bash -c \"source /opt/ros/noetic/setup.bash && bash\""]
